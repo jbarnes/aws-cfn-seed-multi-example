@@ -1,0 +1,27 @@
+---
+SNSConfig: &SNS_CONFIG
+  TopicNameOne: "AlwaysOne"
+  TopicNameThree: "AlwaysThree"
+
+stacks:
+  - name: sns-topics-customer1
+    template: sns-topics.yml
+    parameters:
+    <<: *SNS_CONFIG
+    TopicNameTwo: "topic-two-customer1"
+    TopicNameFour: "topic-four-customer1"
+
+  - name: sns-topics-customer2
+    template: sns-topics.yml
+    parameters:
+    <<: *SNS_CONFIG
+    TopicNameTwo: "topic-two-customer2"
+    TopicNameFour: "topic-four-customer2"
+
+  - name: sns-topics-customer3
+    template: sns-topics.yml
+    parameters:
+    <<: *SNS_CONFIG
+    TopicNameOne: "our-topic-name"
+    TopicNameTwo: "topic-two-customer1"
+    TopicNameFour: "topic-four-customer1"

@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Basic SNS Topic Stack
+
+Parameters:
+  TopicNameOne:
+    Type: String
+    Default: "sns-topic-one"
+  TopicNameTwo:
+    Type: String
+    Default: "sns-topic-two"
+  TopicNameThree:
+    Type: String
+    Default: "sns-topic-three"
+  TopicNameFour:
+    Type: String
+    Default: "sns-topic-four"
+
+Resources:
+  SNSTopicOne:
+    Type: "AWS::SNS::Topic"
+    Properties:
+      TopicName: !Ref TopicNameOne
+
+  SNSTopicTwo:
+    Type: "AWS::SNS::Topic"
+    Properties:
+      TopicName: !Ref TopicNameTwo
+
+  SNSTopicThree:
+    Type: "AWS::SNS::Topic"
+    Properties:
+      TopicName: !Ref TopicNameThree
+
+  SNSTopicFour:
+    Type: "AWS::SNS::Topic"
+    Properties:
+      TopicName: !Ref TopicNameFour

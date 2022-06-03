@@ -4,24 +4,66 @@ SNSConfig: &SNS_CONFIG
   TopicNameThree: "AlwaysThree"
 
 stacks:
+  # Single deployment examples (deployment user primary account only)
   - name: sns-topics-customer1
     template: sns-topics.yml
     parameters:
-    <<: *SNS_CONFIG
-    TopicNameTwo: "topic-two-customer1"
-    TopicNameFour: "topic-four-customer1"
+      <<: *SNS_CONFIG
+      TopicNameTwo: "topic-two-customer1"
+      TopicNameFour: "topic-four-customer1"
 
   - name: sns-topics-customer2
     template: sns-topics.yml
     parameters:
-    <<: *SNS_CONFIG
-    TopicNameTwo: "topic-two-customer2"
-    TopicNameFour: "topic-four-customer2"
+      <<: *SNS_CONFIG
+      TopicNameTwo: "topic-two-customer2"
+      TopicNameFour: "topic-four-customer2"
 
   - name: sns-topics-customer3
     template: sns-topics.yml
     parameters:
-    <<: *SNS_CONFIG
-    TopicNameOne: "our-topic-name"
-    TopicNameTwo: "topic-two-customer1"
-    TopicNameFour: "topic-four-customer1"
+      <<: *SNS_CONFIG
+      TopicNameOne: "our-topic-name"
+      TopicNameTwo: "topic-two-customer1"
+      TopicNameFour: "topic-four-customer1"
+
+  # Individual stackset approach
+
+  - name: ss-sns-topics-customer1
+    type: stackset
+    template: sns-topics.yml
+    parameters:
+      <<: *SNS_CONFIG
+      TopicNameTwo: "topic-two-customer1"
+      TopicNameFour: "topic-four-customer1"
+    rollout_strategy: accounts
+    rollout:
+      - account: "111111111111"
+        regions:
+          - ap-southeast-1
+
+  - name: ss-sns-topics-customer2
+    type: stackset
+    template: sns-topics.yml
+    parameters:
+      <<: *SNS_CONFIG
+      TopicNameTwo: "topic-two-customer2"
+      TopicNameFour: "topic-four-customer2"
+    rollout_strategy: accounts
+    rollout:
+      - account: "111111111112"
+        regions:
+          - ap-southeast-2
+
+  - name: ss-sns-topics-customer3
+    type: stackset
+    template: sns-topics.yml
+    parameters:
+      <<: *SNS_CONFIG
+      TopicNameTwo: "my-second-topic"
+      TopicNameFour: "topic-four-customer3"
+    rollout_strategy: accounts
+    rollout:
+      - account: "111111111113"
+        regions:
+          - us-east-1
